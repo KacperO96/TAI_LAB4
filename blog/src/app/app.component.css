@@ -1,0 +1,21 @@
+body {
+  background-color: grey;
+  width: 100%;
+}
+
+ul{
+  background-color: black;
+  width: 100%;
+}
+
+li {
+  color: white;
+}
+
+.content {
+  clear: both;
+}
+
+.navbar-brand {
+  padding: 12.5px 15px;
+}
