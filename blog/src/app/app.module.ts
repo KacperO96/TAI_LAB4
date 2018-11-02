@@ -12,6 +12,7 @@ import {BlogItemComponent} from './components/blog-item/blog-item.component';
 import {BlogItemImageComponent} from './components/blog-item-image/blog-item-image.component';
 import {BlogItemTextComponent} from './components/blog-item-text/blog-item-text.component';
 import { BlogItemDetailComponent } from './components/blog-item-detail/blog-item-detail.component';
+import { SummaryPipe } from './summary.pipe';
 
 const appRoutes: Routes = [
   {
@@ -35,7 +36,7 @@ const appRoutes: Routes = [
     component: BlogComponent,
   },
   {
-    path: 'blog/:id',
+    path: 'blog/detail/:id',
     component: BlogItemDetailComponent,
   }
 ];
@@ -52,7 +53,8 @@ const appRoutes: Routes = [
     BlogItemComponent,
     BlogItemImageComponent,
     BlogItemTextComponent,
-    BlogItemDetailComponent
+    BlogItemDetailComponent,
+    SummaryPipe
   ],
   imports: [
     BrowserModule,

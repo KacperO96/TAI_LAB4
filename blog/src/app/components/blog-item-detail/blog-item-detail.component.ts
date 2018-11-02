@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {DataService} from "../../data.service";
 
 @Component({
   selector: 'app-blog-item-detail',
@@ -7,12 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class BlogItemDetailComponent implements OnInit {
 
-  @Input() text: string;
-  @Input() image: string;
+  text: string;
+  image: string;
 
-  constructor() { }
+  constructor(private data: DataService) { }
 
   ngOnInit() {
+    this.data.currentText.subscribe(text => this.text = text);
+    this.data.currentImage.subscribe(image => this.image = image);
   }
 
 }

@@ -1,3 +1,4 @@
 <div *ngFor="let it of items">
-  <app-blog-item [image]="it.image" [text]="it.text"></app-blog-item>
+  <app-blog-item [image]="it.image" [text]="it.text | summary:35" (click)="newValues(it.text, it.image, items.indexOf(it))"></app-blog-item>
 </div>
+git
