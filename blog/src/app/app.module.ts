@@ -13,6 +13,10 @@ import {BlogItemImageComponent} from './components/blog-item-image/blog-item-ima
 import {BlogItemTextComponent} from './components/blog-item-text/blog-item-text.component';
 import { BlogItemDetailComponent } from './components/blog-item-detail/blog-item-detail.component';
 import { SummaryPipe } from './summary.pipe';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { FilterPipe } from './pipes/filter.pipe';
+import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   {
@@ -54,10 +58,14 @@ const appRoutes: Routes = [
     BlogItemImageComponent,
     BlogItemTextComponent,
     BlogItemDetailComponent,
-    SummaryPipe
+    SummaryPipe,
+    FilterPipe
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(appRoutes)
   ],
   providers: [],

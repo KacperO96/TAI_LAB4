@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {DataServiceService} from "../../services/data-service.service";
 
 @Component({
   selector: 'app-blog',
@@ -9,59 +10,36 @@ import {Router} from "@angular/router";
 })
 export class BlogComponent implements OnInit {
 
-  items = [
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "1Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "2Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "3Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "4Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "5Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "6Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "7Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "8Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "9Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-    {
-      image: "https://wallpaperbrowse.com/media/images/soap-bubble-1958650_960_720.jpg",
-      text: "10Ala ma kotaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
-    },
-  ];
+  filterText;
 
-  constructor(private data: DataService, private router: Router) {
+  items: any[];
+
+  constructor(private data: DataService, private router: Router, private dataServ: DataServiceService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => this.filterText = params['title']);
+    // this.filterText = this.route.snapshot.queryParamMap.get("title");
+    this.dataServ.getAll().subscribe(result => {
+      this.items = result;
+      console.log(this.items);
+    })
+
+    // this.dataServ.get(10).subscribe(result => {
+    //   this.value = result;
+    //   console.log(this.value);
+    // };
+  }
+
+  setQuery(text) {
+    this.router.navigate(['/blog'], {
+      queryParams: {title: text}
+    });
   }
 
   newValues(text, image, id) {
     this.data.changeImage(image);
     this.data.changeText(text);
-    this.router.navigate(['/blog/detail/',id]);
+    this.router.navigate(['/blog/detail/', id]);
   }
-
 }
