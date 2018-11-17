@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {DataService} from "../../data.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {DataServiceService} from "../../services/data-service.service";
@@ -10,7 +10,7 @@ import {DataServiceService} from "../../services/data-service.service";
 })
 export class BlogComponent implements OnInit {
 
-  filterText;
+  @Input() filterText: string;
 
   items: any[];
 
