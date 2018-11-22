@@ -4,6 +4,7 @@ import cors from 'cors';
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 app.use(express.static('public'));
 
 const posts = [
@@ -86,7 +87,30 @@ app.get('/api/posts', (req, res)=> {
 app.get('/api/posts/:id', (req, res)=>{
     res.send(posts[parseInt(req.params.id)]);
     // res.status(404).send("Post not found");
-})
+});
+
+app.post('/api/posts', (req, res) => {
+    const post = {
+        id: posts.length + 1,
+        albumId: req.body.albumId,
+        title: req.body.title,
+        url: req.body.url,
+        thumbnailUrl: req.body.thumbnailUrl,
+    };
+    posts.push(post);
+    res.send(post);
+});
+
+app.put('/api/posts/:id', (req, res) => {
+    const post = posts.find((p) => p.id === parseInt(req.params.id));
+    if (!post) {
+        res.status(404).send("Post NotFound");
+    }
+    post.title = req.body.title;
+    post.url = req.body.url;
+    post.thubnailUrl = req.body.thubnailUrl;
+    res.send(post);
+});
 
 app.listen(3000, () => {
     console.log("Server is running");
